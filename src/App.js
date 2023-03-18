@@ -1,4 +1,4 @@
-import { Header } from "./components";
+import { Header, RestaurantsList } from "./components";
 import { RestaurantsContextProvider } from "./context/RestaurantsContext";
 
 function App() {
@@ -6,8 +6,8 @@ function App() {
     <RestaurantsContextProvider>
       <div>
         <Header />
-        {/* {restaurants && restaurants.map((rest) => <h3>{rest.name}</h3>)} */}
         <div id="map"></div>
+        <RestaurantsList />
       </div>
     </RestaurantsContextProvider>
   );

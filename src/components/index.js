@@ -1,3 +1,4 @@
 import Header from "./Header/Header";
+import RestaurantsList from "./RestaurantsList/RestaurantsList";
 
-export { Header };
+export { Header, RestaurantsList };
