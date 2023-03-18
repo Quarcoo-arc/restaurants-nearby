@@ -68,3 +68,103 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+```json
+{
+    business_status
+    :
+    "OPERATIONAL"
+    geometry
+    :
+    {location: _.De, viewport: _.qg}
+    html_attributions
+    :
+    []
+    icon
+    :
+    "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png"
+    icon_background_color
+    :
+    "#FF9E67"
+    icon_mask_base_uri
+    :
+    "https://maps.gstatic.com/mapfiles/place_api/icons/v2/restaurant_pinlet"
+    name
+    :
+    "New Beijing Chinese Restaurant And Guest House"
+    opening_hours
+    :
+    {isOpen: ƒ}
+    photos
+    :
+    Array(1)
+    0
+    :
+    getUrl
+    :
+    ƒ ()
+    height
+    :
+    1080
+    html_attributions
+    :
+    Array(1)
+    0
+    :
+    "<a href=\"https://maps.google.com/maps/contrib/100103463976032252153\">Aurora PC Ghana</a>"
+    length
+    :
+    1
+    [[Prototype]]
+    :
+    Array(0)
+    width
+    :
+    1920
+    [[Prototype]]
+    :
+    Object
+    length
+    :
+    1
+    [[Prototype]]
+    :
+    Array(0)
+    place_id
+    :
+    "ChIJE6zJlwab3w8RANSz_wwL0vI"
+    plus_code
+    :
+    {compound_code: 'JR68+4Q Accra, Ghana', global_code: '6CQXJR68+4Q'}
+    rating
+    :
+    3.8
+    reference
+    :
+    "ChIJE6zJlwab3w8RANSz_wwL0vI"
+    scope
+    :
+    "GOOGLE"
+    types
+    :
+    (4) ['restaurant', 'food', 'point_of_interest', 'establishment']
+    user_ratings_total
+    :
+    32
+    vicinity
+    :
+    "Volta Street, Accra"
+    utc_offset
+    :
+    (...)
+    get utc_offset
+    :
+    ƒ ()
+    set utc_offset
+    :
+    ƒ (c)
+    [[Prototype]]
+    :
+    Object
+}
+```
