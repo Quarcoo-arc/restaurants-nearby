@@ -5,6 +5,9 @@ const RestaurantsContext = createContext(null);
 export const RestaurantsContextProvider = ({ children }) => {
   const [restaurants, setRestaurants] = useState([]);
   const [location, setLocation] = useState([]);
+  const [data, setData] = useState(restaurants);
+  const [sortBy, setSortBy] = useState("default");
+  const [pageNum, setPageNum] = useState(1);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -122,8 +125,43 @@ export const RestaurantsContextProvider = ({ children }) => {
   };
   window.initMap = initMap;
 
+  const sortData = (param) => {
+    console.log("sorting");
+    setData(restaurants.sort((a, b) => b.rating - a.rating));
+    if (param === "ratings") {
+    } else if (param === "distance") {
+      setData(
+        restaurants.sort(
+          (a, b) => +a.distance.split(" ")[0] - +b.distance.split(" ")[0]
+        )
+      );
+    } else if (param === "restaurant_name") {
+      setData(
+        restaurants.sort((a, b) =>
+          a.name < b.name ? -1 : a.name > b.name ? 1 : 0
+        )
+      );
+    }
+    setPageNum(1);
+  };
+
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
+
   return (
-    <RestaurantsContext.Provider value={{ restaurants }}>
+    <RestaurantsContext.Provider
+      value={{
+        restaurants,
+        data,
+        setData,
+        sortData,
+        sortBy,
+        setSortBy,
+        pageNum,
+        setPageNum,
+      }}
+    >
       {children}
     </RestaurantsContext.Provider>
   );

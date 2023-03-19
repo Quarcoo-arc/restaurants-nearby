@@ -1,18 +1,19 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import RestaurantsContext from "../../context/RestaurantsContext";
 import "./Pagination.css";
 
-const Pagination = ({ restaurants, setData }) => {
-  const [selected, setSelected] = useState(0);
+const Pagination = () => {
+  const { restaurants, pageNum, setPageNum } = useContext(RestaurantsContext);
   return (
     <div className="pages">
       {Array(Math.ceil(restaurants.length / 10))
         .fill(1)
         .map((el, idx) => (
           <p
-            className={selected === idx ? "selected" : ""}
+            key={idx}
+            className={pageNum - 1 === idx ? "selected" : ""}
             onClick={() => {
-              setSelected(idx);
-              setData(restaurants.slice(10 * idx, 10 * idx + 11));
+              setPageNum(idx + 1);
             }}
           >
             {idx + 1}

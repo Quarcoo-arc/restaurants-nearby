@@ -1,14 +1,21 @@
-import { Header, RestaurantsList } from "./components";
+import {
+  Footer,
+  Header,
+  Pagination,
+  RestaurantsList,
+  Sort,
+} from "./components";
 import { RestaurantsContextProvider } from "./context/RestaurantsContext";
 
 function App() {
   return (
     <RestaurantsContextProvider>
-      <div>
-        <Header />
-        <div id="map"></div>
-        <RestaurantsList />
-      </div>
+      <Header />
+      <div id="map"></div>
+      <Sort />
+      <RestaurantsList />
+      <Pagination />
+      <Footer />
     </RestaurantsContextProvider>
   );
 }

@@ -1,0 +1,17 @@
+.sort_wrapper {
+  display: flex;
+  flex-direction: row;
+  margin: 2rem;
+  gap: 1.5rem;
+}
+
+.sort_wrapper h4 {
+  margin: 0;
+}
+
+@media screen and (max-width: 425px) {
+  .sort_wrapper {
+    flex-direction: column;
+    justify-content: center;
+  }
+}
