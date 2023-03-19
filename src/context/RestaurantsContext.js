@@ -23,12 +23,12 @@ export const RestaurantsContextProvider = ({ children }) => {
   }, []);
 
   const initMap = (lat, lng) => {
-    if (location) {
+    if (lat && lng) {
       let map;
       let service;
       let infowindow;
 
-      async function getRestaurants() {
+      function getRestaurants() {
         const sydney = new window.google.maps.LatLng(lat, lng);
         infowindow = new window.google.maps.InfoWindow();
         map = new window.google.maps.Map(document.getElementById("map"), {
@@ -39,7 +39,7 @@ export const RestaurantsContextProvider = ({ children }) => {
         console.log(location);
 
         const request = {
-          location: { lat: location[0], lng: location[1] },
+          location: { lat, lng },
           radius: 5500,
           type: ["restaurant"],
         };
@@ -51,7 +51,7 @@ export const RestaurantsContextProvider = ({ children }) => {
             results
           ) {
             setRestaurants(results);
-            computeDistances(results);
+            computeDistances(results, lat, lng);
             console.log(results);
             for (let i = 0; i < results.length; i++) {
               createMarker(results[i]);
@@ -78,7 +78,7 @@ export const RestaurantsContextProvider = ({ children }) => {
         });
       }
 
-      const computeDistances = (places) => {
+      const computeDistances = (places, lat, lng) => {
         if (!places) return;
 
         const destinations = [];
@@ -97,19 +97,19 @@ export const RestaurantsContextProvider = ({ children }) => {
         let distanceService = new window.google.maps.DistanceMatrixService();
         distanceService.getDistanceMatrix(
           {
-            origins: [new window.google.maps.LatLng(...location)],
+            origins: [new window.google.maps.LatLng(lat, lng)],
             destinations,
             travelMode: window.google.maps.TravelMode.DRIVING,
           },
           (response, status) => {
             if (status === "OK" && response) {
               console.log(response);
-              const data = restaurants.map((rest, idx) => {
-                rest.distance = response.rows[0].elements[idx].distance.text;
-                return rest;
-              });
-              setRestaurants(data);
-              console.log(data);
+              setRestaurants((rests) =>
+                rests.map((rest, id) => {
+                  rest.distance = response.rows[0].elements[id].distance.text;
+                  return rest;
+                })
+              );
             }
           }
         );
@@ -117,40 +117,6 @@ export const RestaurantsContextProvider = ({ children }) => {
     }
   };
   window.initMap = initMap;
-
-  //   useEffect(() => {
-  //     if (restaurants) {
-  //       const destinations = [];
-
-  //       restaurants.forEach((res) => {
-  //         destinations.push(
-  //           new window.google.maps.LatLng(
-  //             res.geometry.location.lat(),
-  //             res.geometry.location.lng()
-  //           )
-  //         );
-  //       });
-
-  //       console.log(destinations);
-
-  //       let distanceService = new window.google.maps.DistanceMatrixService();
-  //       distanceService.getDistanceMatrix(
-  //         {
-  //           origins: [new window.google.maps.LatLng(...location)],
-  //           destinations,
-  //           travelMode: window.google.maps.TravelMode.DRIVING,
-  //         },
-  //         (response, status) => {
-  //           if (
-  //             status === window.google.maps.DistanceMatrixService.OK &&
-  //             response
-  //           ) {
-  //             console.log(response);
-  //           }
-  //         }
-  //       );
-  //     }
-  //   }, [restaurants, location]);
 
   return (
     <RestaurantsContext.Provider value={{ restaurants }}>
