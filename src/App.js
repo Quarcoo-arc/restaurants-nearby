@@ -1,22 +1,32 @@
+import { useContext } from "react";
 import {
   Footer,
   Header,
   Pagination,
   RestaurantsList,
   Sort,
+  Spinner,
 } from "./components";
-import { RestaurantsContextProvider } from "./context/RestaurantsContext";
+import RestaurantsContext from "./context/RestaurantsContext";
 
 function App() {
+  const { isLoading } = useContext(RestaurantsContext);
   return (
-    <RestaurantsContextProvider>
+    <>
       <Header />
       <div id="map"></div>
-      <Sort />
-      <RestaurantsList />
-      <Pagination />
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <>
+          <Sort />
+          <RestaurantsList />
+          <Pagination />
+        </>
+      )}
+
       <Footer />
-    </RestaurantsContextProvider>
+    </>
   );
 }
 

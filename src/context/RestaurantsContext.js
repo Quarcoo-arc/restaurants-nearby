@@ -4,23 +4,22 @@ const RestaurantsContext = createContext(null);
 
 export const RestaurantsContextProvider = ({ children }) => {
   const [restaurants, setRestaurants] = useState([]);
-  const [location, setLocation] = useState([]);
   const [data, setData] = useState(restaurants);
-  const [sortBy, setSortBy] = useState("default");
+  const [sortBy, setSortBy] = useState("restaurant_name");
   const [pageNum, setPageNum] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    sortData("restaurant_name");
+  }, [restaurants]);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        console.log(position.coords.latitude, position.coords.longitude);
-        setLocation(() => [
-          position.coords.latitude,
-          position.coords.longitude,
-        ]);
         initMap(position.coords.latitude, position.coords.longitude);
       },
-      () => {
-        console.log("error");
+      (error) => {
+        alert(error);
       }
     );
   }, []);
@@ -39,8 +38,6 @@ export const RestaurantsContextProvider = ({ children }) => {
           zoom: 15,
         });
 
-        console.log(location);
-
         const request = {
           location: { lat, lng },
           radius: 5500,
@@ -55,12 +52,14 @@ export const RestaurantsContextProvider = ({ children }) => {
           ) {
             setRestaurants(results);
             computeDistances(results, lat, lng);
-            console.log(results);
             for (let i = 0; i < results.length; i++) {
               createMarker(results[i]);
             }
 
             map.setCenter(results[0].geometry.location);
+          } else {
+            setIsLoading(false);
+            alert("Something went wrong!\nKindly reload the webpage.");
           }
         });
       }
@@ -95,8 +94,6 @@ export const RestaurantsContextProvider = ({ children }) => {
           );
         });
 
-        console.log(destinations);
-
         let distanceService = new window.google.maps.DistanceMatrixService();
         distanceService.getDistanceMatrix(
           {
@@ -106,7 +103,6 @@ export const RestaurantsContextProvider = ({ children }) => {
           },
           (response, status) => {
             if (status === "OK" && response) {
-              console.log(response);
               setRestaurants((rests) =>
                 rests.map((rest, id) => {
                   rest.distance = response.rows[0].elements[id].distance.text;
@@ -117,7 +113,10 @@ export const RestaurantsContextProvider = ({ children }) => {
                   return rest;
                 })
               );
+            } else {
+              alert("Something went wrong!");
             }
+            setIsLoading(false);
           }
         );
       };
@@ -126,7 +125,6 @@ export const RestaurantsContextProvider = ({ children }) => {
   window.initMap = initMap;
 
   const sortData = (param) => {
-    console.log("sorting");
     setData(restaurants.sort((a, b) => b.rating - a.rating));
     if (param === "ratings") {
     } else if (param === "distance") {
@@ -145,10 +143,6 @@ export const RestaurantsContextProvider = ({ children }) => {
     setPageNum(1);
   };
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
   return (
     <RestaurantsContext.Provider
       value={{
@@ -160,6 +154,7 @@ export const RestaurantsContextProvider = ({ children }) => {
         setSortBy,
         pageNum,
         setPageNum,
+        isLoading,
       }}
     >
       {children}

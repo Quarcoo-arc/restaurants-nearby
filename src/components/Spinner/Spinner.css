@@ -1,0 +1,17 @@
+.spinner {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  color: #637dcb;
+  background-color: rgba(0, 0, 0, 0.1);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+}
+
+.spinner img {
+  width: 15rem;
+  height: 15rem;
+}
