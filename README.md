@@ -14,7 +14,7 @@ This will install all the packages used by the project and their dependencies.
 
 In order to get a Google Maps API key
 
-- Navigate to [Google Maps Console](https://console.cloud.google.com/)
+- Navigate to [Google Cloud Console](https://console.cloud.google.com/)
 - Create a new project
 - Create an API key that can access the following APIs
   - Distance Matrix API
