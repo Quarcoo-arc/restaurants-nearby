@@ -37,4 +37,4 @@ Run `npm start`.
 This runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-You will now be able to view the <strong>restaurants nearby</strong>.
+Allow the webpage <strong>location access</strong> when prompted by the browser, in order to view <strong>restaurants nearby</strong>.
