@@ -1,12 +1,13 @@
 # Restaurants Nearby
 
+This project allows users to get to know the restaurants that surround them.\
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Steps To Run Project Locally
 
 ### Install Project Dependencies
 
-In the project directory, run `npm install`.
+In the project directory, run `npm install`.\
 This will install all the packages used by the project and their dependencies.
 
 ### Get a Google Maps API key
@@ -22,7 +23,7 @@ In order to get a Google Maps API key
 
 ### Create an Environment Variable
 
-In the root directory of the project, create a `.env` file.
+In the root directory of the project, create a `.env` file.\
 In the `.env` file, assign the <strong>API key</strong> generated to a variable `REACT_APP_API_KEY`.
 
 ```json
