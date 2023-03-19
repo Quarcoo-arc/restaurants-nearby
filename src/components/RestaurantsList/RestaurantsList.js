@@ -17,6 +17,7 @@ const RestaurantsList = () => {
             name={res.name}
             noOfRatings={res.user_ratings_total}
             ratings={res.rating}
+            coords={res.coords}
           />
         ))}
     </div>

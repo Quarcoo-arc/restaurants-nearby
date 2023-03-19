@@ -107,6 +107,10 @@ export const RestaurantsContextProvider = ({ children }) => {
               setRestaurants((rests) =>
                 rests.map((rest, id) => {
                   rest.distance = response.rows[0].elements[id].distance.text;
+                  rest.coords = [
+                    rest.geometry.location.lat(),
+                    rest.geometry.location.lng(),
+                  ];
                   return rest;
                 })
               );
